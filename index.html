@@ -641,7 +641,8 @@
         </div>
 
     </section>
-    <!-- EXPEREIENCE/SKILLS SECTION -->
+
+    <!-- Experience / Skills -->
     <section id="experience">
         <p class="section__text__p1">Explore My</p>
         <h1 class="title">Skills</h1>
@@ -649,135 +650,11 @@
             <div class="about-containers">
                 <div class="details-containers">
                     <h2 class="experience-sub-title">Front-End Skills</h2>
-                    <div class="article-container">
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>HTML</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>CSS</h3>
-                                <p>Basic Level</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>Javascript</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>JQuery</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>Bootstrap</h3>
-                                <p>Basic Level</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>React</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>Typescript</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>Tailwind CSS</h3>
-                                <p>Basic Level</p>
-                            </div>
-                        </article>
-                        <!-- JUST COPY artical tag and add nessary skill and its level -->
-                        <!-- <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Typescript</h3>
-                  <p>Experienced</p>
-                </div>
-              </article> -->
-                    </div>
+                    <div class="article-container" id="frontend-skills"></div>
                 </div>
                 <div class="details-containers">
                     <h2 class="experience-sub-title">Back-End Skills</h2>
-                    <div class="article-container">
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>Node</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>Express</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>MongoDB</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>SQL</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>Java</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="./assets/checkmark.png" alt="experience icon" class="icon" />
-                            <div>
-                                <h3>C/C++</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <!-- JUST COPY artical tag and add nessary skill and its level -->
-                        <!-- <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Typescript</h3>
-                  <p>Experienced</p>
-                </div>
-              </article> -->
-                    </div>
+                    <div class="article-container" id="backend-skills"></div>
                 </div>
             </div>
         </div>
@@ -786,9 +663,12 @@
         </a>
     </section>
 
+
     <!-- PROJECT SECTION -->
-    <section id="projects" style="height: 30vh;">
-        <p class="section__text__p1">Browse My Recent</p>
+    <section id="projects" style="height: 35vh;">
+        <h1>
+            <p class="section__text__p1">Browse My Recent</p>
+        </h1>
         <a href="./project-timeline.html">
             <h1 class="title">Projects</h1>
         </a>
@@ -839,6 +719,57 @@
             menu.classList.toggle("open");
             icon.classList.toggle("open");
         }
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const frontEndSkills = [
+                { name: "HTML", level: "Intermediate" },
+                { name: "CSS", level: "Basic Level" },
+                { name: "Javascript", level: "Experienced" },
+                { name: "JQuery", level: "Intermediate" },
+                { name: "Bootstrap", level: "Basic Level" },
+                { name: "React", level: "Intermediate" },
+                { name: "Typescript", level: "Basic Level" },
+                { name: "Tailwind CSS", level: "Basic Level" }
+            ];
+
+            const backEndSkills = [
+                { name: "Node", level: "Experienced" },
+                { name: "Express", level: "Intermediate" },
+                { name: "MongoDB", level: "Intermediate" },
+                { name: "SQL", level: "Intermediate" },
+                { name: "Java", level: "Experienced" },
+                { name: "C/C++", level: "Experienced" }
+            ];
+
+            function addSkills(skillList, containerId) {
+                const container = document.getElementById(containerId);
+                skillList.forEach(skill => {
+                    const article = document.createElement("article");
+
+                    const img = document.createElement("img");
+                    img.src = "./assets/checkmark.png";
+                    img.alt = "experience icon";
+                    img.classList.add("icon");
+
+                    const div = document.createElement("div");
+                    const h3 = document.createElement("h3");
+                    h3.textContent = skill.name;
+                    const p = document.createElement("p");
+                    p.textContent = skill.level;
+
+                    div.appendChild(h3);
+                    div.appendChild(p);
+                    article.appendChild(img);
+                    article.appendChild(div);
+
+                    container.appendChild(article);
+                });
+            }
+
+            addSkills(frontEndSkills, "frontend-skills");
+            addSkills(backEndSkills, "backend-skills");
+        });
     </script>
 </body>
 
