@@ -712,6 +712,8 @@
         <p>Copyright &#169; 2025 Aakash. All Rights Reserved</p>
     </footer>
 
+    <script src="./data/fontend-skills.js"></script>
+    <script src="./data/backend-skills.js"></script>
     <script>
         function toggleMenu() {
             const menu = document.querySelector(".menu-links");
@@ -720,28 +722,7 @@
             icon.classList.toggle("open");
         }
 
-
         document.addEventListener("DOMContentLoaded", function () {
-            const frontEndSkills = [
-                { name: "HTML", level: "Intermediate" },
-                { name: "CSS", level: "Basic Level" },
-                { name: "Javascript", level: "Experienced" },
-                { name: "JQuery", level: "Intermediate" },
-                { name: "Bootstrap", level: "Basic Level" },
-                { name: "React", level: "Intermediate" },
-                { name: "Typescript", level: "Basic Level" },
-                { name: "Tailwind CSS", level: "Basic Level" }
-            ];
-
-            const backEndSkills = [
-                { name: "Node", level: "Experienced" },
-                { name: "Express", level: "Intermediate" },
-                { name: "MongoDB", level: "Intermediate" },
-                { name: "SQL", level: "Intermediate" },
-                { name: "Java", level: "Experienced" },
-                { name: "C/C++", level: "Experienced" }
-            ];
-
             function addSkills(skillList, containerId) {
                 const container = document.getElementById(containerId);
                 skillList.forEach(skill => {
