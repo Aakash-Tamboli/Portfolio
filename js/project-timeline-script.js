@@ -22,20 +22,20 @@ function renderTimeline() {
 
 function animateTimelineItems() {
     const timelineItems = document.querySelectorAll('.timeline-item');
-    timelineItems.forEach((item, index) => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        item.classList.add('animated');
-                    }, index * 200);
-                    observer.unobserve(item);
-                }
-            });
-        }, { threshold: 0.2 });
-        observer.observe(item);
-    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const item = entry.target;
+                item.classList.add('animated');
+                observer.unobserve(item);
+            }
+        });
+    }, { threshold: 0.4 }); // Increased threshold for better responsiveness
+
+    timelineItems.forEach((item) => observer.observe(item));
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     renderTimeline();
