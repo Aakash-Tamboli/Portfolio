@@ -10,7 +10,7 @@ function renderTimeline() {
     timelineContainer.innerHTML = projects.map(project => `
         <div class="timeline-item">
             <div class="project-card">
-                <h2 class="text-xl font-semibold mb-2">${project.title}</h2>
+                <a href="${project.url}"><h2 class="text-xl font-semibold mb-2">${project.title}</h2></a>
                 <p class="text-gray-600 mb-4">${project.description}</p>
                 <div class="flex flex-wrap gap-2">
                     ${project.tags.map(tag => `<span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">${tag}</span>`).join('')}
