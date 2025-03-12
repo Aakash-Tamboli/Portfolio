@@ -11,20 +11,13 @@ const projects = [
     {
         id: 2,
         title: "Cpp Project",
-        description: `v3 Minor C++ Project which I made during learning C++.\n
-
-        &#10687; Student Management System - It is a fun project to understand, In general how management system works.\n
-
-        &#10687; Inventory - It is a General Quantity Based Measurement console based software which teach me how to develop a software in layered programing approach.\n
-
-        &#10687; Replica Of STL - It is also a fun project to understand the importance of virtual polymorphism and how it is implemented in predefined library/classes.\n
-
-        &#10687; tmcommon - It is just string utility project.\n
-
-        &#10687; TMDate - It is a kind of replica of Date class which present in Java, hence Traditional C++ won't provide anything related to Date.\n
-
-        &#10687; SQlite3 - RDMBS for c++ projects.\n
-
+        description: `v3 Minor C++ Project which I made during learning C++.<br/><br/>
+        • Student Management System - It is a fun project to understand, In general how management system works.<br/><br/>
+        • Inventory - It is a General Quantity Based Measurement console based software which teach me how to develop a software in layered programing approach.<br/><br/>
+        • Replica Of STL - It is also a fun project to understand the importance of virtual polymorphism and how it is implemented in predefined library/classes.<br/><br/>
+        • tmcommon - It is just string utility project.<br/><br/>
+        • TMDate - It is a kind of replica of Date class which present in Java, hence Traditional C++ won't provide anything related to Date.<br/><br/>
+        • SQlite3 - RDMBS for c++ projects.<br/><br/>
         `,
         tags: ["C++", "Foundation", "System Programming", "Thinking Machines"]
     },
