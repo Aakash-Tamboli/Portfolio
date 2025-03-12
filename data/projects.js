@@ -11,19 +11,19 @@ const projects = [
     {
         id: 2,
         title: "Cpp Project",
-        description: `v2 Minor C++ Project which I made during learning C++.
+        description: `v3 Minor C++ Project which I made during learning C++.\n
 
-        1) Student Management System - It is a fun project to understand, In general how management system works.
+        1) Student Management System - It is a fun project to understand, In general how management system works.\n
 
-        2) Inventory - It is a General Quantity Based Measurement console based software which teach me how to develop a software in layered programing approach.
+        2) Inventory - It is a General Quantity Based Measurement console based software which teach me how to develop a software in layered programing approach.\n
 
-        3) Replica Of STL - It is also a fun project to understand the importance of virtual polymorphism and how it is implemented in predefined library/classes.
+        3) Replica Of STL - It is also a fun project to understand the importance of virtual polymorphism and how it is implemented in predefined library/classes.\n
 
-        4) tmcommon - It is just string utility project.
+        4) tmcommon - It is just string utility project.\n
 
-        5) TMDate - It is a kind of replica of Date class which present in Java, hence Traditional C++ won't provide anything related to Date.
+        5) TMDate - It is a kind of replica of Date class which present in Java, hence Traditional C++ won't provide anything related to Date.\n
 
-        6) SQlite3 - RDMBS for c++ projects.
+        6) SQlite3 - RDMBS for c++ projects.\n
 
         `,
         tags: ["C++", "Foundation", "System Programming", "Thinking Machines"]
