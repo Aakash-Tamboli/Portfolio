@@ -3,7 +3,7 @@ const projects = [
         id: 9,
         url: "https://meri-dukan.onrender.com/",
         title: "MERI-DUKAN (E-Commerce Application)",
-        description: `MERI-DUKAN is a full-stack e-commerce application built for learning purposes. It includes a <b>React</b> frontend powered by Node.js and backend using Express** and **MongoDB**. The app supports user authentication, product management, payments with **Stripe**, and more.`,
+        description: `MERI-DUKAN is a full-stack e-commerce application built for learning purposes. It includes a <b>React</b> frontend powered by <b>Node.js</b> and backend using <b>Express</b> and <b>MongoDB</b>. The app supports <b>user authentication</b>, <b>product management</b>, <b>payments with <b>Stripe Payments</b>, and more.`,
         tags: ["MERN", "E-Commerce", "Stripe Payment Gateway", "Redis" , "JWT", "MongoDB", "Express", "React", "Node", ]
     },
     {
