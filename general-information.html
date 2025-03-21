@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copy to Clipboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f5f5f5;
+      }
+      .button-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .copy-button {
+        background-color: white;
+        color: black;
+        border: none;
+        padding: 20px 40px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 10px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s;
+      }
+      .copy-button:hover {
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="button-container">
+      <button class="copy-button" onclick="copyToClipboard(this)">
+        Aakash
+      </button>
+      <button class="copy-button" onclick="copyToClipboard(this)">
+        Tamboli
+      </button>
+      <button class="copy-button" onclick="copyToClipboard(this)">
+        Aakash Tamboli
+      </button>
+      <button class="copy-button" onclick="copyToClipboard(this)">
+        aakash.devx@gmail.com
+      </button>
+      <button class="copy-button" onclick="copyToClipboard(this)">
+        7000384145
+      </button>
+      <button class="copy-button" onclick="copyToClipboard(this)">MCA</button>
+      <button class="copy-button" onclick="copyToClipboard(this)">2024</button>
+      <button class="copy-button" onclick="copyToClipboard(this)">
+        Department College, Vikram University
+      </button>
+      <button class="copy-button" onclick="copyToClipboard(this)">
+        Fresher
+      </button>
+      <button class="copy-button" onclick="copyToClipboard(this)">
+        https://www.linkedin.com/in/aakashtamboli/
+      </button>
+      <button class="copy-button" onclick="copyToClipboard(this)">
+        https://drive.google.com/file/d/1V-0VsMvQzkvoQ_3fNlvnnj2TIrcfIuQy/view?usp=drive_link
+      </button>
+      <button class="copy-button" onclick="copyToClipboard(this)">
+        https://github.com/Aakash-Tamboli
+      </button>
+    </div>
+    <script>
+      let toastInstance = null;
+      function copyToClipboard(button) {
+        const text = button.innerText;
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            if (toastInstance) {
+              toastInstance.hideToast();
+            }
+            toastInstance = Toastify({
+              text: `${text} Copied to clipboard!`,
+              duration: 2000,
+              close: true,
+              gravity: "top",
+              position: "center",
+              backgroundColor: "#4CAF50",
+            });
+            toastInstance.showToast();
+          })
+          .catch((err) => {
+            console.error("Error copying text: ", err);
+          });
+      }
+    </script>
+  </body>
+</html>
