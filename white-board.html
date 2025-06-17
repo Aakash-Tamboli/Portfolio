@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>Web Whiteboard</title>
+
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    :root {
+      --toolbar-w: 60px;
+      --pagebar-w: 72px;
+      --bg: #ffffff;
+      --border: #e0e0e0;
+      --text: #000000;
+      --tb-bg: #ffffff;
+      --tb-btn: #1976d2;
+      --tb-btn-hover: #145ca6;
+      --tb-btn-active: #0e4883;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121212;
+        --border: #333;
+        --text: #ffffff;
+        --tb-bg: #1e1e1e;
+        --tb-btn: #2196f3;
+        --tb-btn-hover: #1976d2;
+        --tb-btn-active: #1565c0;
+      }
+    }
+
+    body {
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* ----- LEFT PAGEBAR ----- */
+    #pagebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--pagebar-w);
+      height: 100vh;
+      background: var(--bg);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0.4rem;
+      gap: 0.3rem;
+      overflow-y: auto;
+      user-select: none;
+    }
+
+    #pagebar label {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    #pagebar input[type="radio"] {
+      accent-color: var(--tb-btn);
+      cursor: pointer;
+    }
+
+    /* ----- RIGHT TOOLBAR ----- */
+    #toolbar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: var(--toolbar-w);
+      height: 100vh;
+      background: var(--tb-bg);
+      box-shadow: -2px 0 4px rgba(0, 0, 0, .08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.2rem;
+      user-select: none;
+    }
+
+    #toolbar button {
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.7rem;
+      height: 30px;
+      background: var(--tb-btn);
+      color: #fff;
+      transition: background 150ms;
+    }
+
+    #toolbar button:hover {
+      background: var(--tb-btn-hover);
+    }
+
+    #toolbar button:active {
+      background: var(--tb-btn-active);
+    }
+
+    .spacer {
+      flex: 1;
+    }
+
+    #colorPalette {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 0.3rem;
+    }
+
+    .color-btn {
+      width: 24px;
+      height: 24px;
+      border: 1px solid #555;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    #colorPicker {
+      display: none;
+    }
+
+    /* ----- CANVAS ----- */
+    #canvas {
+      position: absolute;
+      top: 0;
+      left: var(--pagebar-w);
+      width: calc(100vw - var(--toolbar-w) - var(--pagebar-w));
+      height: 100vh;
+      background: var(--bg);
+      cursor: url('pen-cursor.png') 4 12, auto;
+      /* hotspot 4,12 */
+      touch-action: none;
+    }
+    </style>
+  </head>
+
+  <body>
+    <!-- page list -->
+    <div id="pagebar"></div>
+
+    <!-- drawing area -->
+    <canvas id="canvas"></canvas>
+
+    <!-- tools -->
+    <div id="toolbar">
+      <button id="addPageBtn" title="Add page">+</button>
+      <button id="eraserBtn" title="Eraser">Eraser</button>
+
+      <div class="spacer"></div>
+
+      <div id="colorPalette">
+        <button class="color-btn" data-color="#000000" style="background:#000;"></button>
+        <button class="color-btn" data-color="#ff0000" style="background:#f00;"></button>
+        <button class="color-btn" data-color="#008000" style="background:#080;"></button>
+        <button class="color-btn" data-color="#0000ff" style="background:#00f;"></button>
+      </div>
+
+      <input type="color" id="colorPicker" value="#000000" />
+    </div>
+
+    <script>
+      /* ---------- DOM refs ---------- */
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      const addPageBtn = document.getElementById('addPageBtn');
+      const pagebar = document.getElementById('pagebar');
+      const colorPicker = document.getElementById('colorPicker');
+      const eraserBtn = document.getElementById('eraserBtn');
+
+      /* ---------- Block zoom ---------- */
+        ['gesturestart', 'gesturechange', 'gestureend'].forEach(ev => document.addEventListener(ev, e => e.preventDefault(), { passive: false }));
+      document.addEventListener('wheel', e => { if (e.ctrlKey || e.metaKey) e.preventDefault(); }, { passive: false });
+      document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ['+', '-', '=', '0'].includes(e.key)) e.preventDefault(); });
+
+      /* ---------- Color palette ---------- */
+        document.querySelectorAll('.color-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            colorPicker.value = btn.dataset.color;
+            isErasing = false;
+            canvas.style.cursor = "url('pen-cursor.png') 4 12, auto";
+          });
+        });
+
+      /* ---------- Canvas sizing ---------- */
+        const toolbarW = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--toolbar-w'));
+      const pagebarW = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--pagebar-w'));
+
+      function resizeCanvas() {
+        const snap = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        canvas.width = window.innerWidth - toolbarW - pagebarW;
+        canvas.height = window.innerHeight;
+        ctx.putImageData(snap, 0, 0);
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      /* ---------- Pagination ---------- */
+        let pages = [null], currentPage = 0;
+      function saveCurrent() { pages[currentPage] = ctx.getImageData(0, 0, canvas.width, canvas.height); }
+      function loadPage(i) { ctx.clearRect(0, 0, canvas.width, canvas.height); if (pages[i]) ctx.putImageData(pages[i], 0, 0); }
+      function renderPages() {
+        pagebar.innerHTML = '';
+        pages.forEach((_, i) => {
+          const lbl = document.createElement('label');
+          const r = document.createElement('input');
+          r.type = 'radio'; r.name = 'page'; r.value = i; r.checked = i === currentPage;
+          r.addEventListener('change', () => switchPage(i));
+          lbl.append(r, document.createTextNode('p-' + (i + 1)));
+          pagebar.appendChild(lbl);
+        });
+      }
+      function addPage() { saveCurrent(); pages.push(null); currentPage = pages.length - 1; renderPages(); loadPage(currentPage); }
+      function switchPage(i) { if (i === currentPage) return; saveCurrent(); currentPage = i; loadPage(i); renderPages(); }
+
+      /* ---------- Smooth drawing with Bézier ---------- */
+        let drawing = false, isErasing = false, lastX = 0, lastY = 0;
+      const pos = e => { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+
+      canvas.addEventListener('pointerdown', e => {
+        e.preventDefault();
+        const { x, y } = pos(e);
+        drawing = true;
+        lastX = x; lastY = y;
+        ctx.strokeStyle = isErasing ? '#ffffff' : colorPicker.value;
+        ctx.lineWidth = 4;
+        ctx.lineCap = ctx.lineJoin = 'round';
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+      });
+
+      canvas.addEventListener('pointermove', e => {
+        if (!drawing) return;
+        const { x, y } = pos(e);
+
+        // Mid‑point for quadratic curve
+        const midX = (lastX + x) / 2, midY = (lastY + y) / 2;
+        ctx.quadraticCurveTo(lastX, lastY, midX, midY);
+        ctx.stroke();
+
+        // prepare next segment
+        ctx.beginPath();
+        ctx.moveTo(midX, midY);
+        lastX = x; lastY = y;
+      });
+
+      const stop = () => { drawing = false; ctx.closePath(); };
+      canvas.addEventListener('pointerup', stop);
+      canvas.addEventListener('pointerleave', stop);
+      window.addEventListener('pointerup', stop);
+
+      /* ---------- Toolbar buttons ---------- */
+        addPageBtn.addEventListener('click', addPage);
+      eraserBtn.addEventListener('click', () => {
+        isErasing = true;
+        canvas.style.cursor = 'crosshair';
+      });
+
+      renderPages();
+      canvas.style.cursor = "url('pen-cursor.png') 4 12, auto";
+    </script>
+  </body>
+
+</html>
