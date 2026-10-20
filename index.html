@@ -62,9 +62,40 @@
 
         a:hover {
             color: grey;
-            text-decoration: underline;
-            text-underline-offset: 1rem;
-            text-decoration-color: rgb(181, 181, 181);
+        }
+
+        #desktop-nav .nav-links a,
+        #hamburger-nav .menu-links a {
+            position: relative;
+            text-decoration: none;
+        }
+
+        #desktop-nav .nav-links a::after,
+        #hamburger-nav .menu-links a::after {
+            position: absolute;
+            right: 0;
+            bottom: -0.35rem;
+            left: 0;
+            height: 2px;
+            background-color: rgb(181, 181, 181);
+            content: "";
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 300ms ease;
+        }
+
+        #desktop-nav .nav-links a:hover::after,
+        #desktop-nav .nav-links a:focus-visible::after,
+        #hamburger-nav .menu-links a:hover::after,
+        #hamburger-nav .menu-links a:focus-visible::after {
+            transform: scaleX(1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #desktop-nav .nav-links a::after,
+            #hamburger-nav .menu-links a::after {
+                transition: none;
+            }
         }
 
         .logo {
