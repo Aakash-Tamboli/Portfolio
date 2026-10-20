@@ -129,7 +129,8 @@
             width: 100%;
             height: 2px;
             background-color: black;
-            transition: all 0.3 ease-in-out;
+            transform-origin: center;
+            transition: transform 300ms ease, opacity 200ms ease;
         }
 
         .menu-links {
@@ -140,7 +141,8 @@
             width: fit-content;
             max-height: 0;
             overflow: hidden;
-            transition: all 0.3 ease-in-out;
+            opacity: 0;
+            transition: max-height 300ms ease, opacity 200ms ease;
         }
 
         .menu-links a {
@@ -150,7 +152,7 @@
             font-size: 1.5rem;
             color: black;
             text-decoration: none;
-            transition: all 0.3 ease-in-out;
+            transition: color 300ms ease;
         }
 
         .menu-links li {
@@ -159,10 +161,11 @@
 
         .menu-links.open {
             max-height: 300px;
+            opacity: 1;
         }
 
         .hamburger-icon.open span:first-child {
-            transform: rotate(45deg) translate(10px, 5px);
+            transform: translateY(11px) rotate(45deg);
         }
 
         .hamburger-icon.open span:nth-child(2) {
@@ -170,19 +173,15 @@
         }
 
         .hamburger-icon.open span:last-child {
-            transform: rotate(-45deg) translate(10px, -5px);
+            transform: translateY(-11px) rotate(-45deg);
         }
 
-        .hamburger-icon span:first-child {
-            transform: none;
-        }
-
-        .hamburger-icon span:first-child {
-            opacity: 1;
-        }
-
-        .hamburger-icon span:first-child {
-            transform: none;
+        @media (prefers-reduced-motion: reduce) {
+            .hamburger-icon span,
+            .menu-links,
+            .menu-links a {
+                transition: none;
+            }
         }
 
         /* SECTIONS */
@@ -607,6 +606,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Skills</a></li>
                 <li><a href="./project-timeline.html">Projects</a></li>
+                <li><a href="./white-board.html">Whiteboard</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -624,6 +624,7 @@
                 <li><a href="#about" onclick="toggleMenu()">About</a></li>
                 <li><a href="#experience" onclick="toggleMenu()">Skills</a></li>
                 <li><a href="./project-timeline.html" onclick="toggleMenu()">Projects</a></li>
+                <li><a href="./white-board.html" onclick="toggleMenu()">Whiteboard</a></li>
                 <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
             </div>
         </div>
