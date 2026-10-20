@@ -4,7 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aakash</title>
+    <meta name="description"
+        content="Aakash Tamboli is a software engineer specializing in web development and system programming. Explore his skills, projects, and experience." />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Aakash Tamboli | Software Engineer" />
+    <meta property="og:description"
+        content="Explore the portfolio, skills, and projects of software engineer Aakash Tamboli." />
+    <title>Aakash Tamboli | Software Engineer</title>
     <!-- <link rel="stylesheet" href="./style.css" /> -->
     <!-- <link rel="stylesheet" href="./mediaqueries.css" /> -->
     <style>
@@ -23,6 +30,27 @@
 
         html {
             scroll-behavior: smooth;
+        }
+
+        .skip-link {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 10;
+            padding: 0.75rem 1rem;
+            color: white;
+            background: black;
+            transform: translateY(-200%);
+        }
+
+        .skip-link:focus {
+            transform: translateY(0);
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid #1d4ed8;
+            outline-offset: 4px;
         }
 
         p {
@@ -60,7 +88,7 @@
         }
 
         a:hover {
-            color: grey;
+            color: #595959;
         }
 
         #desktop-nav .nav-links a,
@@ -90,15 +118,13 @@
             transform: scaleX(1);
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            #desktop-nav .nav-links a::after,
-            #hamburger-nav .menu-links a::after {
-                transition: none;
-            }
-        }
-
         .logo {
             font-size: 2rem;
+        }
+
+        #hamburger-nav .logo {
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            white-space: nowrap;
         }
 
         .logo:hover {
@@ -117,16 +143,21 @@
         }
 
         .hamburger-icon {
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 24px;
-            width: 30px;
+            align-items: center;
+            height: 44px;
+            width: 44px;
+            padding: 10px 7px;
+            border: 0;
+            background: transparent;
             cursor: pointer;
         }
 
         .hamburger-icon span {
-            width: 100%;
+            width: 30px;
             height: 2px;
             background-color: black;
             transform-origin: center;
@@ -142,7 +173,12 @@
             max-height: 0;
             overflow: hidden;
             opacity: 0;
-            transition: max-height 300ms ease, opacity 200ms ease;
+            visibility: hidden;
+            list-style: none;
+            z-index: 1;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transition: max-height 300ms ease, opacity 200ms ease, visibility 0s linear 300ms;
         }
 
         .menu-links a {
@@ -155,13 +191,11 @@
             transition: color 300ms ease;
         }
 
-        .menu-links li {
-            list-style: none;
-        }
-
         .menu-links.open {
             max-height: 300px;
             opacity: 1;
+            visibility: visible;
+            transition: max-height 300ms ease, opacity 200ms ease;
         }
 
         .hamburger-icon.open span:first-child {
@@ -174,14 +208,6 @@
 
         .hamburger-icon.open span:last-child {
             transform: translateY(-11px) rotate(-45deg);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .hamburger-icon span,
-            .menu-links,
-            .menu-links a {
-                transition: none;
-            }
         }
 
         /* SECTIONS */
@@ -261,39 +287,47 @@
         .btn {
             font-weight: 600;
             box-sizing: border-box;
-            transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease;
+            transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease,
+                box-shadow 200ms ease, transform 200ms ease;
             padding: 1rem;
             width: 10rem;
             border-radius: 2rem;
         }
 
-        .btn-color-1,
+        .btn-color-1 {
+            border: 0.1rem solid black;
+            background: black;
+            color: white;
+        }
+
         .btn-color-2 {
-            border: 0.1rem solid transparent;
+            border: 0.1rem solid black;
+            background: white;
+            color: black;
         }
 
         .btn-color-1:hover,
         .btn-color-2:hover {
             cursor: pointer;
-        }
-
-        .btn-color-1,
-        .btn-color-2:hover {
-            background: rgb(0, 0, 0);
-            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
         }
 
         .btn-color-1:hover {
-            background: rgb(255, 255, 255);
-            color: black;
-        }
-
-        .btn-color-2 {
-            background: none;
+            background: #333;
+            border-color: #333;
         }
 
         .btn-color-2:hover {
-            border: rgb(255, 255, 255) 0.1rem solid;
+            background: black;
+            color: white;
+            border-color: black;
+        }
+
+        .btn-color-1:active,
+        .btn-color-2:active {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16);
         }
 
         .btn-container {
@@ -343,12 +377,6 @@
 
             50% {
                 transform: translate(-50%, 8px);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .arrow {
-                animation: none;
             }
         }
 
@@ -440,12 +468,32 @@
             padding: 0.5rem;
         }
 
+        .contact-intro {
+            margin: 0.75rem 1rem 0;
+            text-align: center;
+        }
+
         .contact-info-container {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
             margin: 1rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid rgb(163, 163, 163);
+            border-radius: 1.5rem;
+            font-weight: 600;
+        }
+
+        .contact-link:hover {
+            color: white;
+            background: black;
         }
 
         .contact-info-container p {
@@ -469,6 +517,17 @@
 
         footer p {
             text-align: center;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation: none !important;
+                transition-duration: 0.01ms !important;
+                transition-delay: 0s !important;
+            }
         }
     </style>
     <style>
@@ -531,6 +590,11 @@
             #contact,
             footer {
                 height: 40vh;
+            }
+
+            #contact {
+                height: auto;
+                min-height: 40vh;
             }
 
             #profile {
@@ -598,8 +662,9 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <!-- DESKTOP NAV -->
-    <nav id="desktop-nav">
+    <nav id="desktop-nav" aria-label="Primary navigation">
         <div class="logo">Aakash Tamboli</div>
         <div>
             <ul class="nav-links">
@@ -612,23 +677,25 @@
         </div>
     </nav>
     <!-- HAMBURGER NAV -->
-    <nav id="hamburger-nav">
+    <nav id="hamburger-nav" aria-label="Primary navigation">
         <div class="logo">Aakash Tamboli</div>
         <div class="hamburger-menu">
-            <div class="hamburger-icon" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="menu-links">
+            <button class="hamburger-icon" type="button" aria-label="Toggle navigation menu"
+                aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMenu()">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+            <ul class="menu-links" id="mobile-menu">
                 <li><a href="#about" onclick="toggleMenu()">About</a></li>
                 <li><a href="#experience" onclick="toggleMenu()">Skills</a></li>
                 <li><a href="./project-timeline.html" onclick="toggleMenu()">Projects</a></li>
                 <li><a href="./white-board.html" onclick="toggleMenu()">Whiteboard</a></li>
                 <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-            </div>
+            </ul>
         </div>
     </nav>
+    <main id="main-content">
     <!-- PROFILE SECTION -->
     <section id="profile">
         <div class="section__text">
@@ -654,23 +721,23 @@
             </div>
         </div>
     </section>
-    <a href="#about">
-        <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" />
+    <a href="#about" aria-label="Scroll to About section">
+        <img src="./assets/arrow.png" alt="" class="icon arrow" />
     </a>
     <!-- ABOUT SECTION -->
     <section id="about">
         <p class="section__text__p1">Get To Know More</p>
-        <h1 class="title">About Me</h1>
+        <h2 class="title">About Me</h2>
         <div class="section-container">
             <div class="about-details-containers">
                 <div class="about-containers">
                     <div class="details-containers">
-                        <img src="./assets/experience.png" alt="Experience icon" class="icon" />
+                        <img src="./assets/experience.png" alt="" class="icon" />
                         <h3>Experience</h3>
                         <p>5+ years <br />Software Development</p>
                     </div>
                     <div class="details-containers">
-                        <img src="./assets/education.png" alt="Education icon" class="icon" />
+                        <img src="./assets/education.png" alt="" class="icon" />
                         <h3>Education</h3>
                         <p>B.C.A Bachelors Degree<br />M.C.A Masters Degree</p>
                     </div>
@@ -684,8 +751,8 @@
                         complex programming challenges.
                     </p>
                 </div>
-                <a href="#experience">
-                    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" />
+                <a href="#experience" aria-label="Scroll to Skills section">
+                    <img src="./assets/arrow.png" alt="" class="icon arrow" />
                 </a>
             </div>
 
@@ -696,61 +763,60 @@
     <!-- Experience / Skills -->
     <section id="experience">
         <p class="section__text__p1">Explore My</p>
-        <h1 class="title">Skills</h1>
+        <h2 class="title">Skills</h2>
         <div class="experience-details-container">
             <div class="about-containers">
                 <div class="details-containers">
-                    <h2 class="experience-sub-title">Front-End Skills</h2>
+                    <h3 class="experience-sub-title">Front-End Skills</h3>
                     <div class="article-container" id="frontend-skills"></div>
                 </div>
                 <div class="details-containers">
-                    <h2 class="experience-sub-title">Back-End Skills</h2>
+                    <h3 class="experience-sub-title">Back-End Skills</h3>
                     <div class="article-container" id="backend-skills"></div>
                 </div>
             </div>
         </div>
-        <a href="#projects">
-            <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" />
+        <a href="#projects" aria-label="Scroll to Projects section">
+            <img src="./assets/arrow.png" alt="" class="icon arrow" />
         </a>
     </section>
 
 
     <!-- PROJECT SECTION -->
     <section id="projects" style="height: 35vh;">
-        <h1>
-            <p class="section__text__p1">Browse My Recent</p>
-        </h1>
+        <p class="section__text__p1">Browse My Recent</p>
         <a href="./project-timeline.html">
-            <h1 class="title">Projects</h1>
+            <h2 class="title">Projects</h2>
         </a>
-        <a href="#contact">
-            <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" />
+        <a href="#contact" aria-label="Scroll to Contact section">
+            <img src="./assets/arrow.png" alt="" class="icon arrow" />
         </a>
     </section>
 
     <!-- CONTACT SECTION -->
     <section id="contact">
         <p class="section__text__p1">Get in Touch</p>
-        <h1 class="title">Contact Me</h1>
+        <h2 class="title">Let’s Work Together</h2>
+        <p class="contact-intro">Have a project in mind? I’d love to hear from you.</p>
         <div class="contact-info-upper-container">
             <div class="contact-info-container">
-                <img src="./assets/email.png" alt="Email icon" class="icon contact-icon email-icon" />
-                <p>
-                    <a href="mailto:aakash.devx@gmail.com">aakash.devx@gmail.com</a>
-                </p>
+                <img src="./assets/email.png" alt="" class="icon contact-icon email-icon" />
+                <a class="contact-link" href="mailto:aakash.devx@gmail.com">Email me</a>
             </div>
             <div class="contact-info-container">
-                <img src="./assets/linkedin.png" alt="Linkedin icon" class="icon contact-icon" />
+                <img src="./assets/linkedin.png" alt="" class="icon contact-icon" />
                 <p>
-                    <a href="https://www.linkedin.com/in/aakashtamboli/" target="_blank">LinkedIn</a>
+                    <a class="contact-link" href="https://www.linkedin.com/in/aakashtamboli/" target="_blank"
+                        rel="noopener noreferrer">LinkedIn</a>
                 </p>
             </div>
         </div>
     </section>
+    </main>
 
     <!-- FOOTER SECTION -->
     <footer>
-        <nav>
+        <nav aria-label="Footer navigation">
             <div class="nav-links-container">
                 <ul class="nav-links">
                     <li><a href="#about">About</a></li>

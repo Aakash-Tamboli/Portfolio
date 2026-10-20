@@ -1,8 +1,9 @@
 function toggleMenu() {
     const menu = document.querySelector(".menu-links");
     const icon = document.querySelector(".hamburger-icon");
-    menu.classList.toggle("open");
-    icon.classList.toggle("open");
+    const isOpen = menu.classList.toggle("open");
+    icon.classList.toggle("open", isOpen);
+    icon.setAttribute("aria-expanded", String(isOpen));
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -13,16 +14,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const img = document.createElement("img");
             img.src = "./assets/checkmark.png";
-            img.alt = "experience icon";
+            img.alt = "";
             img.classList.add("icon");
 
             const div = document.createElement("div");
-            const h3 = document.createElement("h3");
-            h3.textContent = skill.name;
+            const heading = document.createElement("h4");
+            heading.textContent = skill.name;
             const p = document.createElement("p");
             p.textContent = skill.level;
 
-            div.appendChild(h3);
+            div.appendChild(heading);
             div.appendChild(p);
             article.appendChild(img);
             article.appendChild(div);

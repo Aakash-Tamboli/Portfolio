@@ -3,8 +3,9 @@
 
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
-    <title>Web Whiteboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Aakash Tamboli's interactive web whiteboard for sketching and organizing ideas." />
+    <title>Web Whiteboard | Aakash Tamboli</title>
 
     <style>
 * {
@@ -103,7 +104,7 @@
       border-radius: 6px;
       cursor: pointer;
       font-size: 0.7rem;
-      height: 30px;
+      height: 44px;
       background: var(--tb-btn);
       color: #fff;
       transition: background 150ms;
@@ -115,6 +116,13 @@
 
     #toolbar button:active {
       background: var(--tb-btn-active);
+    }
+
+    #toolbar button:focus-visible,
+    .color-btn:focus-visible,
+    #pagebar input:focus-visible {
+      outline: 3px solid #1d4ed8;
+      outline-offset: 2px;
     }
 
     .spacer {
@@ -153,30 +161,30 @@
       background: var(--bg);
       cursor: url('pen-cursor.png') 4 12, auto;
       /* hotspot 4,12 */
-      touch-action: none;
+      touch-action: pinch-zoom;
     }
     </style>
   </head>
 
   <body>
     <!-- page list -->
-    <div id="pagebar"></div>
+    <div id="pagebar" role="group" aria-label="Whiteboard pages"></div>
 
     <!-- drawing area -->
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" aria-label="Drawing canvas"></canvas>
 
     <!-- tools -->
-    <div id="toolbar">
-      <button id="addPageBtn" title="Add page">+</button>
-      <button id="eraserBtn" title="Eraser">Eraser</button>
+    <div id="toolbar" role="group" aria-label="Drawing tools">
+      <button id="addPageBtn" type="button" title="Add page" aria-label="Add page">+</button>
+      <button id="eraserBtn" type="button" title="Eraser">Eraser</button>
 
       <div class="spacer"></div>
 
       <div id="colorPalette">
-        <button class="color-btn" data-color="#000000" style="background:#000;"></button>
-        <button class="color-btn" data-color="#ff0000" style="background:#f00;"></button>
-        <button class="color-btn" data-color="#008000" style="background:#080;"></button>
-        <button class="color-btn" data-color="#0000ff" style="background:#00f;"></button>
+        <button class="color-btn" type="button" data-color="#000000" style="background:#000;" aria-label="Black pen"></button>
+        <button class="color-btn" type="button" data-color="#ff0000" style="background:#f00;" aria-label="Red pen"></button>
+        <button class="color-btn" type="button" data-color="#008000" style="background:#080;" aria-label="Green pen"></button>
+        <button class="color-btn" type="button" data-color="#0000ff" style="background:#00f;" aria-label="Blue pen"></button>
       </div>
 
       <input type="color" id="colorPicker" value="#000000" />
@@ -190,11 +198,6 @@
       const pagebar = document.getElementById('pagebar');
       const colorPicker = document.getElementById('colorPicker');
       const eraserBtn = document.getElementById('eraserBtn');
-
-      /* ---------- Block zoom ---------- */
-        ['gesturestart', 'gesturechange', 'gestureend'].forEach(ev => document.addEventListener(ev, e => e.preventDefault(), { passive: false }));
-      document.addEventListener('wheel', e => { if (e.ctrlKey || e.metaKey) e.preventDefault(); }, { passive: false });
-      document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && ['+', '-', '=', '0'].includes(e.key)) e.preventDefault(); });
 
       /* ---------- Color palette ---------- */
         document.querySelectorAll('.color-btn').forEach(btn => {
